@@ -62,6 +62,16 @@ typedef void (^FBKVONotificationBlock)(id observer, id object, NSDictionary *cha
 - (void)observe:(id)object keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options block:(FBKVONotificationBlock)block;
 
 /**
+ @abstract Registers observer for key-value change notification that will execute on the main thread..
+ @param object The object to observe.
+ @param keyPath The key path to observe.
+ @param options The NSKeyValueObservingOptions to use for observation.
+ @param block The block to execute on notification, which runs on the main thread.
+ @discussion On key-value change, the specified block is called. Inorder to avoid retain loops, the block must avoid referencing the KVO controller or an owner thereof. Observing an already observed object key path or nil results in no operation.
+ */
+- (void)observeOnMainThread:(id)object keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options block:(FBKVONotificationBlock)block;
+
+/**
  @abstract Registers observer for key-value change notification.
  @param object The object to observe.
  @param keyPath The key path to observe.
