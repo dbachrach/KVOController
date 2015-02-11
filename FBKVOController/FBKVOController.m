@@ -531,9 +531,14 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
 - (void)observeOnMainThread:(id)object keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options block:(FBKVONotificationBlock)block
 {
     [self observe:object keyPath:keyPath options:options block:^(id observer, id object, NSDictionary *change) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        if ([NSThread isMainThread]) {
             block(observer, object, change);
-        });
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                block(observer, object, change);
+            });
+        }
     }];
 }
 
