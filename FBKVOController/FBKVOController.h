@@ -9,6 +9,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 /**
  @abstract Block called on key-value change notification.
  @param observer The observer of the change.
@@ -145,3 +146,5 @@ typedef void (^FBKVONotificationBlock)(id observer, id object, NSDictionary *cha
 - (void)unobserveAll;
 
 @end
+
+#import "NSObject+FBKVOController.h"
